@@ -12,7 +12,6 @@ public class Node<K> implements INode<K> {
 	public K getKey() {
 		return key;
 	}
-
 	@Override
 	public void setKey(K key) {
 

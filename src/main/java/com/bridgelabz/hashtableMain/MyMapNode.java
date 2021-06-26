@@ -38,7 +38,6 @@ public class MyMapNode<K, V> implements INode<K> {
 	public void setValue(V value) {
 		this.value = value;
 	}
-
 	@Override
 	public String toString() {
 		StringBuilder myMapNodeString = new StringBuilder();

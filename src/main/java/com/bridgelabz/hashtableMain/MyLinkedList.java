@@ -86,7 +86,6 @@ public class MyLinkedList<K> {
 		}
 		return null;
 	}
-
 	public void removeParticularNode(INode<K> deleteNode) {
 		INode tempNode = this.head;
 		INode prev = null;
