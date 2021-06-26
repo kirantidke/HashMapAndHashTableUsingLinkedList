@@ -21,7 +21,6 @@ public class HashMap<K, V> {
             myMapNode.setValue(value);
         }
     }
-
     @Override
     public String toString() {
         return "MyHashMapNodes { " + myLinkedList + " }";

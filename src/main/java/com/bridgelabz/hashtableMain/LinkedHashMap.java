@@ -1,31 +1,67 @@
 package com.bridgelabz.hashtableMain;
 
-public class LinkedHashMap<K> implements INode<K> {
-	private LinkedHashMap next;
-	private K key;
+public class LinkedHashMap<K, V> {
+    private final int numBuckets;
+    ArrayList<MyLinkedList<K>> myBucketArray;
 
-	public LinkedHashMap(K key) {
-		this.key = key;
-		this.next = null;
-	}
+    public LinkedHashMap() {
+        this.numBuckets = 10;
+        this.myBucketArray = new ArrayList<>(numBuckets);
+        // create empty LinkedList
+        for (int i = 0; i < numBuckets; i++) {
+            this.myBucketArray.add(null);
+        }
+    }
 
-	public K getKey() {
-		return key;
-	}
-	@Override
-	public void setKey(K key) {
+    private int getBucketIndex(K key) {
+        int hashCode = Math.abs(key.hashCode());
+        int index = hashCode % numBuckets;
+        return index;
+    }
 
-	}
+    public V get(K key) {
+        int index = this.getBucketIndex(key);
+        MyLinkedList<K> myLinkedList = this.myBucketArray.get(index);
+        if (myLinkedList == null)
+            return null;
+        MyMapNode<K, V> myMapNode = (MyMapNode<K, V>) myLinkedList.search(key);
+        return (myMapNode == null) ? null : myMapNode.getValue();
+    }
 
-	public void setkey(K key) {
-		this.key = key;
-	}
+    public void add(K key, V value) {
+        int index = this.getBucketIndex(key);
+        MyLinkedList<K> myLinkedList = this.myBucketArray.get(index);
+        if (myLinkedList == null) {
+            myLinkedList = new MyLinkedList<>();
+            this.myBucketArray.set(index, myLinkedList);
+        }
+        MyMapNode<K, V> myMapNode = (MyMapNode<K, V>) myLinkedList.search(key);
+        if (myMapNode == null) {
+            myMapNode = new MyMapNode<>(key, value);
+            myLinkedList.append(myMapNode);
+        } else {
+            myMapNode.setValue(value);
+        }
+    }
+    public MyMapNode<K,V> remove(K key) {
+        int index = this.getBucketIndex(key);
+        MyLinkedList<K> myLinkedList = this.myBucketArray.get(index);
+        if(myLinkedList==null)
+            return null;
+        else {
+            MyMapNode<K, V> myMapNode = (MyMapNode<K, V>) myLinkedList.search(key);
+            if(myMapNode==null) {
+                return null;
+            }
+            else {
+                MyMapNode<K, V> deletedNode = (MyMapNode<K, V>) myLinkedList.removeParticularNode(myMapNode);
+                return deletedNode;
+            }
+        }
+    }
 
-	public INode<K> getNext() {
-		return next;
-	}
-
-	public void setNext(INode next) {
-		this.next = (LinkedHashMap<K>) next;
-	}
+    @Override
+    public String toString() {
+        return "MyLinkedHashMap List{"+ myBucketArray+ '}';
+    }
 }
