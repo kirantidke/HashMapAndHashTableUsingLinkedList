@@ -1,6 +1,7 @@
 package com.bridgelabz.hashtableMain;
 
 public interface INode<K> {
+	
 	K getKey();
     void setKey(K key);
     INode getNext();

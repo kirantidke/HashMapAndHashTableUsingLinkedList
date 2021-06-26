@@ -1,10 +1,10 @@
 package com.bridgelabz.hashtableMain;
 
-public class Node<K> implements INode<K> {
-	private Node next;
+public class LinkedHashMap<K> implements INode<K> {
+	private LinkedHashMap next;
 	private K key;
 
-	public Node(K key) {
+	public LinkedHashMap(K key) {
 		this.key = key;
 		this.next = null;
 	}
@@ -26,6 +26,6 @@ public class Node<K> implements INode<K> {
 	}
 
 	public void setNext(INode next) {
-		this.next = (Node<K>) next;
+		this.next = (LinkedHashMap<K>) next;
 	}
 }
